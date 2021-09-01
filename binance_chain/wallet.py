@@ -2,7 +2,7 @@ import binascii
 from enum import Enum
 from typing import Optional
 
-from secp256k1 import PrivateKey
+# from electrumsv_secp256k1 import _libsecp256k1
 from mnemonic import Mnemonic
 from pywallet.utils.bip32 import Wallet as Bip32Wallet
 
@@ -109,7 +109,8 @@ class Wallet(BaseWallet):
     def __init__(self, private_key, env: Optional[BinanceEnvironment] = None):
         super().__init__(env)
         self._private_key = private_key
-        self._pk = PrivateKey(bytes(bytearray.fromhex(self._private_key)))
+        # self._pk = PrivateKey(bytes(bytearray.fromhex(self._private_key)))
+        self._pk = bytes(bytearray.fromhex(self._private_key))
         self._public_key = self._pk.pubkey.serialize(compressed=True)
         self._address = address_from_public_key(self._public_key, self._env.hrp)
 
